@@ -7,13 +7,10 @@ locals {
         security = {
           name = var.security_org_name
         }
-        sandbox = {
-          name = var.sandbox_org_name
-        }
       }
 
       centralizedLogging = {
-        accountId = aws_organizations_account.centralized_logging.id
+        accountId = var.logging_account_id
         configurations = {
           loggingBucket = {
             retentionDays = var.logging_retention_days
@@ -21,13 +18,13 @@ locals {
           accessLoggingBucket = {
             retentionDays = var.access_logging_retention_days
           }
-          kmsKeyArn = aws_kms_key.logging_kms_key.arn
+          kmsKeyArn = aws_kms_key.control_tower_kms_key[0].arn
         }
         enabled = var.centralised_logging_enabled
       }
 
       securityRoles = {
-        accountId = aws_organizations_account.security.id
+        accountId = var.security_account_id
       }
 
       accessManagement = {
@@ -39,12 +36,12 @@ locals {
       backup = {
         configurations = {
           centralBackup = {
-            accountId = aws_organizations_account.central_backup[0].id
+            accountId = var.central_backup_account_id
           }
           backupAdmin = {
-            accountId = aws_organizations_account.backup_admin[0].id
+            accountId = var.backup_account_id
           }
-          kmsKeyArn = aws_kms_key.backup_kms_key[0].arn
+          kmsKeyArn = aws_kms_key.control_tower_kms_key[1].arn
         }
         enabled = true
       }

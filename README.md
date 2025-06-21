@@ -56,7 +56,9 @@ The IAM user or role used for executing Terraform must have permission to assume
       "Action": "sts:AssumeRole",
       "Resource": [
         "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerAdmin",
-        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerStackSetRole"
+        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerStackSetRole",
+        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerConfigAggregatorRoleForOrganizations",
+        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerCloudTrailRole"
       ]
     }
   ]
