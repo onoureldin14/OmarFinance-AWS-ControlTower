@@ -1,0 +1,3 @@
+security_account_email = "user+security@email.com"
+logging_account_email = "user+logging@email.com"
+production_account_email = "user+production@email.com"
