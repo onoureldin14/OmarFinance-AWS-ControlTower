@@ -12,8 +12,8 @@ This repository provisions an AWS Control Tower Landing Zone along with a multi-
 │   ├── main.tf          # Creates IAM roles and backend S3 bucket
 │   └── iam.tf           # IAM roles for Control Tower
 ├── modules/
-│   └── control-tower-landing-zone/
-│       └── organization.tf  # Organization and account creation
+│   └── control-tower-landing-zone/ # Control Tower and Landing Zone creation
+│   └── aws-organization/  # Organization and account creation
 ├── main.tf              # Root module using control tower module
 ├── backend.tf           # Backend configuration for Terraform state
 ├── variables.tf         # Variables for account emails and configuration
@@ -55,10 +55,7 @@ The IAM user or role used for executing Terraform must have permission to assume
       "Effect": "Allow",
       "Action": "sts:AssumeRole",
       "Resource": [
-        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerAdmin",
-        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerStackSetRole",
-        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerConfigAggregatorRoleForOrganizations",
-        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTowerCloudTrailRole"
+        "arn:aws:iam::REPLACE_WITH_AWS_ACCOUNT_ID:role/service-role/AWSControlTower*"
       ]
     }
   ]
@@ -87,17 +84,18 @@ terraform apply
 To avoid committing sensitive data, populate a local `terraform.tfvars` file. Use the provided `terraform.tfvars.example` as a template:
 
 ```hcl
-security_account_email = "user+security@email.com"
-sandbox_account_email  = "user+sandbox@email.com"
-logging_account_email  = "user+logging@email.com"
+security_account_email    = "user+security@email.com"
+logging_account_email     = "user+logging@email.com"
+production_account_email  = "user+production@email.com"
 ```
 
 Optional fields:
 
 ```hcl
-backup_enabled                 = true
-backup_account_email           = "user+backup@email.com"
-central_backup_account_email  = "user+centralbackup@email.com"
+governed_regions                 = ["us-east-1"]
+backup_enabled                   = true
+backup_account_email             = "user+backup@email.com"
+central_backup_account_email     = "user+centralbackup@email.com"
 ```
 
 ---
@@ -108,7 +106,7 @@ central_backup_account_email  = "user+centralbackup@email.com"
 * Creates multiple AWS accounts:
 
   * Security
-  * Sandbox
+  * Production
   * Centralized Logging
   * Optional Backup accounts
 * Enables AWS governance services (CloudTrail, Config, etc).
@@ -121,7 +119,7 @@ central_backup_account_email  = "user+centralbackup@email.com"
 
 After successful deployment, validate that Control Tower is set up correctly by logging into the [AWS Control Tower Console](https://console.aws.amazon.com/controltower/home).
 
-> Note: It can take the AWS Control Tower up to 30 mins to deploy.
+> Note: It can take the AWS Control Tower up to 60 mins to deploy.
 
 Look for:
 
@@ -129,6 +127,8 @@ Look for:
 * Enrolled Accounts
 * Organizational Units
 * Guardrails and governance configurations
+
+> See [Troubleshooting AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/troubleshooting.html) if you face any errors.
 
 ---
 

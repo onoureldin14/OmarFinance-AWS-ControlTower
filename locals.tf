@@ -1,6 +1,6 @@
 locals {
   organizational_units = {
-    "${var.product_ou_name}" = {
+    "Product" = {
       name = var.product_ou_name
     }
   }
