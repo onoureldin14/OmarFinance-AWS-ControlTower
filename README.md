@@ -112,6 +112,18 @@ central_backup_account_email     = "user+centralbackup@email.com"
 * Enables AWS governance services (CloudTrail, Config, etc).
 * IAM roles for Control Tower admin and StackSets.
 * Regional governance via `governed_regions` variable.
+* (Optional) Enables Control Tower guardrails based on user-defined controls via `enable_controls` flag.
+    * Guardrails are mapped dynamically using OU ARNs provided by the Organization module.
+---
+
+## 🧠 How Control Tower Controls Work
+
+If enable_controls = true, Terraform will:
+- Loop through the provided controls map.
+- Match each control’s target_ou_key with the corresponding OU ARN from the Organization module.
+- Apply the specified control to that OU using the aws_controltower_control resource.
+
+This allows flexible governance configuration without hardcoding OUs or ARNs.
 
 ---
 

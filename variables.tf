@@ -51,3 +51,9 @@ variable "governed_regions" {
   type        = list(string)
   default     = ["eu-west-1", "eu-west-2", "eu-west-3"]
 }
+
+variable "enable_controls" {
+  description = "Enable Control Tower controls"
+  type        = bool
+  default     = true
+}
