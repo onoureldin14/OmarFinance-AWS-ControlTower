@@ -11,3 +11,12 @@ terraform {
 provider "aws" {
   region = "eu-west-1"
 }
+
+# Comment out this provider block if you are not using a production profile
+# and dont need to validate the Control Tower Landing Zone Controls
+
+provider "aws" {
+  alias = "production"
+  profile = "production"
+  region = "eu-west-1"
+}

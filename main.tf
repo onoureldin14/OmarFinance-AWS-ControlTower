@@ -18,3 +18,11 @@ module "organization" {
   organization_accounts = local.organization_accounts
   organizational_units  = local.organizational_units
 }
+
+module "control_tower_controls_validation" {
+  count = var.validate_controls ? 1 : 0
+  providers = {
+    aws = aws.production
+  }
+  source = "./modules/controls-validation"
+}
