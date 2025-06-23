@@ -47,4 +47,13 @@ locals {
       }
     } : {}
   )
+  controls_to_apply = var.enable_controls ? {
+    for key, ctrl in var.controls :
+    key => {
+      control_identifier = ctrl.control_identifier
+      target_identifier  = var.ou_arns[ctrl.target_ou_key]
+    }
+  } : {}
+
+
 }

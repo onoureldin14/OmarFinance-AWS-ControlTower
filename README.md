@@ -14,6 +14,7 @@ This repository provisions an AWS Control Tower Landing Zone along with a multi-
 ├── modules/
 │   └── control-tower-landing-zone/ # Control Tower and Landing Zone creation
 │   └── aws-organization/  # Organization and account creation
+│   └── controls-validation  #  Module for validating guardrails via test resources
 ├── main.tf              # Root module using control tower module
 ├── backend.tf           # Backend configuration for Terraform state
 ├── variables.tf         # Variables for account emails and configuration
@@ -96,6 +97,7 @@ governed_regions                 = ["us-east-1"]
 backup_enabled                   = true
 backup_account_email             = "user+backup@email.com"
 central_backup_account_email     = "user+centralbackup@email.com"
+validate_controls                = true
 ```
 
 ---
@@ -112,6 +114,19 @@ central_backup_account_email     = "user+centralbackup@email.com"
 * Enables AWS governance services (CloudTrail, Config, etc).
 * IAM roles for Control Tower admin and StackSets.
 * Regional governance via `governed_regions` variable.
+* (Optional) Enables Control Tower guardrails based on user-defined controls via `enable_controls` flag.
+    * Guardrails are mapped dynamically using OU ARNs provided by the Organization module.
+* (Optional) Validates enabled Control Tower guardrails using test Lambda/API resources in the production account via `validate_controls`.
+---
+
+## 🧠 How Control Tower Controls Work
+
+If enable_controls = true, Terraform will:
+- Loop through the provided controls map.
+- Match each control’s target_ou_key with the corresponding OU ARN from the Organization module.
+- Apply the specified control to that OU using the aws_controltower_control resource.
+
+This allows flexible governance configuration without hardcoding OUs or ARNs.
 
 ---
 

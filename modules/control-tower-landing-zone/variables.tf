@@ -67,3 +67,25 @@ variable "backup_enabled" {
   type        = bool
   default     = false
 }
+
+variable "enable_controls" {
+  description = "Enable Control Tower controls"
+  type        = bool
+  default     = false
+}
+
+variable "ou_arns" {
+  type        = map(string)
+  description = "Map of OU ARNs keyed by name"
+  default     = {}
+}
+
+variable "controls" {
+  description = "Map of controls to apply"
+  type = map(object({
+    alias              = string
+    control_identifier = string
+    target_ou_key      = string # Key to lookup in OU ARNs map
+  }))
+  default = {}
+}

@@ -25,3 +25,10 @@ output "ou_names" {
     for k, ou in aws_organizations_organizational_unit.ou : k => ou.name
   }
 }
+
+output "ou_arns" {
+  description = "The ARNs of the organizational units created"
+  value = {
+    for k, ou in aws_organizations_organizational_unit.ou : k => ou.arn
+  }
+}
