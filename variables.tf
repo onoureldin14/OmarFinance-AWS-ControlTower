@@ -55,11 +55,11 @@ variable "governed_regions" {
 variable "enable_controls" {
   description = "Enable Control Tower controls"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "validate_controls" {
   description = "Flag to validate controls"
   type        = bool
-  default     = false
+  default     = true
 }

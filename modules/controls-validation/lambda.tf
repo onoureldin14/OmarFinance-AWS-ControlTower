@@ -52,6 +52,7 @@ resource "aws_lambda_function" "inline_lambda" {
 }
 
 resource "aws_lambda_function_url" "public" {
+  count              = var.enable_detective_controls ? 1 : 0
   function_name      = aws_lambda_function.inline_lambda.function_name
   authorization_type = "NONE" # ❌ Publicly accessible
 }

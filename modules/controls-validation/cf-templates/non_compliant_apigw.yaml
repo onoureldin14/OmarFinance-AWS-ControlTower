@@ -1,0 +1,65 @@
+
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: API Gateway + Lambda with public route (intentionally missing access logging for proactive guardrail test)
+
+Resources:
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: lambda-execution-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  ExampleLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: example-lambda
+      Runtime: python3.12
+      Handler: index.handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        ZipFile: |
+          def handler(event, context):
+              return {
+                  'statusCode': 200,
+                  'body': 'Hello from Lambda!'
+              }
+
+  ExampleApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: example-http-api
+      ProtocolType: HTTP
+
+  LambdaIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref ExampleApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ExampleLambda.Arn}/invocations
+      IntegrationMethod: POST
+      PayloadFormatVersion: "2.0"
+
+  DefaultRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ExampleApi
+      RouteKey: 'ANY /{proxy+}'
+      Target: !Sub integrations/${LambdaIntegration}
+
+  DefaultStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref ExampleApi
+      StageName: '$default'
+      AutoDeploy: true
+      # ❌ No AccessLogSettings defined — this will trigger CT.APIGATEWAY.PR.4
