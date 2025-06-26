@@ -64,3 +64,9 @@ variable "validate_controls" {
   type        = bool
   default     = false
 }
+
+variable "security_account_id" {
+  description = "AWS Account ID for the security account"
+  type        = string
+  default     = "" # replace with actual security account ID
+}

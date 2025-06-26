@@ -31,3 +31,14 @@ provider "aws" {
 #   profile = "production"
 #   region  = "eu-west-1"
 # }
+
+############################################################################
+# UnComment out this provider block if you are using a security profile
+# and want to Delegate the Security Account as the Organization Delegated Admin
+############################################################################
+
+provider "aws" {
+  region  = "eu-west-1"
+  alias   = "security"
+  profile = "security"
+}
