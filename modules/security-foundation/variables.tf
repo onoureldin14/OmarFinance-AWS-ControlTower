@@ -9,13 +9,6 @@ variable "validate_iam_access_analyzer" {
   default     = false
 }
 
-variable "enable_org_root_features" {
-  description = "Flag to enable or disable AWS Organizations root features (e.g `RootCredentialsManagement` and `RootSessions`)."
-  type        = bool
-  default     = false
-}
-
-
 variable "validate_org_root_features" {
   description = "Flag to enable org root feature validation"
   type        = bool

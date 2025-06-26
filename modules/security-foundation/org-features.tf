@@ -1,5 +1,4 @@
 resource "aws_iam_organizations_features" "root_features" {
-  count = var.enable_org_root_features ? 1 : 0
   enabled_features = [
     "RootCredentialsManagement",
     "RootSessions"
