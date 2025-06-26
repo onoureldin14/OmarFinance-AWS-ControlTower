@@ -6,7 +6,8 @@ resource "aws_organizations_organization" "org" {
     "controltower.amazonaws.com",
     "member.org.stacksets.cloudformation.amazonaws.com",
     "sso.amazonaws.com",
-    "access-analyzer.amazonaws.com"
+    "access-analyzer.amazonaws.com",
+    "iam.amazonaws.com"
   ]
   feature_set = "ALL"
 }
