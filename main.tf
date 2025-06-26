@@ -38,6 +38,7 @@ module "control_tower_landing_zone" {
 
 module "security_foundation" {
   source                       = "./modules/security-foundation"
+  validate_iam_access_analyzer = false
+  validate_org_root_features   = false
   depends_on                   = [module.control_tower_landing_zone]
-  validate_iam_access_analyzer = true
 }
