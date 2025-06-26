@@ -58,8 +58,9 @@ variable "enable_controls" {
   default     = true
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "validate_controls" {
   description = "Flag to validate controls"
   type        = bool
-  default     = true
+  default     = false
 }

@@ -1,3 +1,10 @@
+module "organization" {
+  source                = "./modules/aws-organization"
+  organization_accounts = local.organization_accounts
+  organizational_units  = local.organizational_units
+}
+
+
 module "control_tower_landing_zone" {
   source              = "./modules/control-tower-landing-zone"
   governed_regions    = var.governed_regions
@@ -10,19 +17,27 @@ module "control_tower_landing_zone" {
   enable_controls = var.enable_controls
   controls        = local.controls
   ou_arns         = module.organization.ou_arns
+  depends_on      = [module.organization]
 
 }
 
-module "organization" {
-  source                = "./modules/aws-organization"
-  organization_accounts = local.organization_accounts
-  organizational_units  = local.organizational_units
-}
+############################################################################
+# UnComment out this module block if you are using a production profile
+# and want to validate the Control Tower Landing Zone Controls
+############################################################################
 
-module "control_tower_controls_validation" {
-  count = var.validate_controls ? 1 : 0
-  providers = {
-    aws = aws.production
-  }
-  source = "./modules/controls-validation"
+
+# module "control_tower_controls_validation" {
+#   count = var.validate_controls ? 1 : 0
+#   providers = {
+#     aws = aws.production
+#   }
+#   source = "./modules/controls-validation"
+#   depends_on = [ module.control_tower_landing_zone ]
+# }
+
+module "security_foundation" {
+  source                       = "./modules/security-foundation"
+  depends_on                   = [module.control_tower_landing_zone]
+  validate_iam_access_analyzer = true
 }
