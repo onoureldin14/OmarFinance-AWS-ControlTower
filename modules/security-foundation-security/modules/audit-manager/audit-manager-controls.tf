@@ -2,7 +2,7 @@
 # Audit Manager Controls
 ############################################################
 resource "aws_auditmanager_control" "config_controls" {
-  name = "cloud_trail_encryption_enabled"
+  name = "aws-config-controls"
 
 
   control_mapping_sources {
