@@ -8,3 +8,9 @@ variable "validate_iam_access_analyzer" {
   type        = bool
   default     = false
 }
+
+variable "use_eks_runtime_monitoring" {
+  description = "Whether to use EKS_RUNTIME_MONITORING instead of RUNTIME_MONITORING"
+  type        = bool
+  default     = true
+}
