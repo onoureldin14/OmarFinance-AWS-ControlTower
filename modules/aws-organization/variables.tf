@@ -33,6 +33,8 @@ variable "delegated_security_services" {
     "iam.amazonaws.com",
     "securityhub.amazonaws.com",
     "guardduty.amazonaws.com",
+    "malware-protection.guardduty.amazonaws.com",
+    "auditmanager.amazonaws.com"
   ]
 }
 
