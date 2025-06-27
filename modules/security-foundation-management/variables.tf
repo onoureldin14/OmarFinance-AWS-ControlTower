@@ -3,3 +3,8 @@ variable "validate_org_root_features" {
   type        = bool
   default     = false
 }
+
+variable "aws_security_account_id" {
+  description = "AWS Account ID for the security account"
+  type        = string
+}

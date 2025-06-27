@@ -49,6 +49,7 @@ module "control_tower_landing_zone" {
 module "security_foundation_management" {
   source                     = "./modules/security-foundation-management"
   validate_org_root_features = false
+  aws_security_account_id    = var.security_account_id
   depends_on                 = [module.control_tower_landing_zone, module.organization]
 }
 
@@ -62,5 +63,5 @@ module "security_foundation_security" {
     aws = aws.security
   }
   validate_iam_access_analyzer = false
-  depends_on                   = [module.control_tower_landing_zone, module.organization]
+  depends_on                   = [module.control_tower_landing_zone, module.organization, module.security_foundation_management]
 }
