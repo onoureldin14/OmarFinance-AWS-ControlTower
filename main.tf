@@ -63,5 +63,38 @@ module "security_foundation_security" {
     aws = aws.security
   }
   validate_iam_access_analyzer = false
+  security_hub_member_invite   = local.security_hub_member_invite
   depends_on                   = [module.control_tower_landing_zone, module.organization, module.security_foundation_management]
 }
+
+#######################################################################################
+# OPTIONAL MODULE FOR SECURITY HUB INVITE ACCEPTOR
+# This module is used to accept Security Hub invitations from the Security Account
+#######################################################################################
+
+# module "securityhub_invite_master_account" {
+#   count                             = var.enable_invite_acceptors ? 1 : 0
+#   source                            = "./modules/securityhub-invite"
+#   aws_securityhub_admin_account_id  = var.security_account_id
+#   depends_on                        = [module.security_foundation_security]
+# }
+
+# module "securityhub_invite_logging_account" {
+#   count                             = var.enable_invite_acceptors ? 1 : 0
+#   source                            = "./modules/securityhub-invite"
+#     providers = {
+#     aws = aws.logging
+#   }
+#   aws_securityhub_admin_account_id  = var.security_account_id
+#   depends_on                        = [module.security_foundation_security]
+# }
+
+# module "securityhub_invite_product_account" {
+#   count                             = var.enable_invite_acceptors ? 1 : 0
+#   source                            = "./modules/securityhub-invite"
+#       providers = {
+#     aws = aws.production
+#   }
+#   aws_securityhub_admin_account_id  = var.security_account_id
+#   depends_on                        = [module.security_foundation_security]
+# }

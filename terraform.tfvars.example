@@ -1,4 +1,10 @@
-security_account_email = "user+security@email.com"
-logging_account_email = "user+logging@email.com"
-production_account_email = "user+production@email.com"
-security_account_id = "123456789012"
+management_account_email = "user@email.me"
+
+security_account_email   = "user+security@email.me"
+security_account_id      = "123456789"
+
+logging_account_email    = "user+logging@email.me"
+logging_account_id       = "123456789"
+
+production_account_email = "user+production@email.me"
+production_account_id    = "123456789"

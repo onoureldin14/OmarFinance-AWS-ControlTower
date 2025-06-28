@@ -42,3 +42,19 @@ provider "aws" {
   alias   = "security"
   profile = "security"
 }
+
+############################################################################
+# UnComment out this provider block if you are using a logging and product profile
+# and want to Enable invite acceptors for Security Hub
+############################################################################
+# provider "aws" {
+#   region  = "eu-west-1"
+#   alias   = "logging"
+#   profile = "logging"
+# }
+
+# provider "aws" {
+#   region  = "eu-west-1"
+#   alias   = "production"
+#   profile = "production"
+# }
