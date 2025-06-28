@@ -62,9 +62,10 @@ module "security_foundation_security" {
   providers = {
     aws = aws.security
   }
-  validate_iam_access_analyzer = false
-  security_hub_member_invite   = local.security_hub_member_invite
-  depends_on                   = [module.control_tower_landing_zone, module.organization, module.security_foundation_management]
+  validate_iam_access_analyzer             = false
+  security_hub_member_invite               = local.security_hub_member_invite
+  securityhub_aggregator_specified_regions = var.securityhub_aggregator_specified_regions
+  depends_on                               = [module.control_tower_landing_zone, module.organization, module.security_foundation_management]
 }
 
 #######################################################################################

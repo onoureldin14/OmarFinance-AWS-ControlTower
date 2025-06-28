@@ -25,4 +25,7 @@ resource "aws_auditmanager_assessment" "assessment" {
       service_name = "S3"
     }
   }
+  lifecycle {
+    ignore_changes = [scope[0].aws_services]
+  }
 }

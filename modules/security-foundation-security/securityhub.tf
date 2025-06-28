@@ -7,4 +7,14 @@ resource "aws_securityhub_member" "members" {
   account_id = each.value.account_id
   email      = each.value.email
   depends_on = [aws_securityhub_organization_configuration.sec_hub_org_config]
+  lifecycle {
+    ignore_changes = [
+      email, invite # Ignore changes to email to prevent unnecessary updates
+    ]
+  }
+}
+
+resource "aws_securityhub_finding_aggregator" "aws_securityhub_finding_aggregator" {
+  linking_mode      = "SPECIFIED_REGIONS"
+  specified_regions = var.securityhub_aggregator_specified_regions
 }
