@@ -28,3 +28,9 @@ variable "security_hub_member_invite" {
     email      = string
   }))
 }
+
+variable "securityhub_aggregator_specified_regions" {
+  description = "List of regions to enable Security Hub finding aggregator"
+  type        = list(string)
+  default     = []
+}

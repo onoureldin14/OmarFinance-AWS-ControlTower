@@ -10,6 +10,12 @@ variable "governed_regions" {
   default     = ["eu-west-1", "eu-west-2", "eu-west-3"]
 }
 
+variable "securityhub_aggregator_specified_regions" {
+  description = "List of regions to enable Security Hub finding aggregator"
+  type        = list(string)
+  default     = ["eu-west-2", "eu-west-3"]
+}
+
 variable "enable_controls" {
   description = "Enable Control Tower controls"
   type        = bool
