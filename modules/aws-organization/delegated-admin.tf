@@ -13,7 +13,8 @@ resource "aws_organizations_delegated_administrator" "delegated_admins" {
     if !contains([
       "guardduty.amazonaws.com",
       "malware-protection.guardduty.amazonaws.com",
-      "auditmanager.amazonaws.com"
+      "auditmanager.amazonaws.com",
+      "securityhub.amazonaws.com",
     ], svc)
   } : {}
 
