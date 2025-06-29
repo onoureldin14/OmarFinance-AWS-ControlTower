@@ -3,6 +3,16 @@ variable "external_account_id" {
   default = "123456789012" # replace with actual external account ID
 }
 
+variable "aws_production_account_id" {
+  description = "AWS Account ID for the production account"
+  type        = string
+}
+
+variable "aws_management_account_id" {
+  description = "AWS Account ID for the management account"
+  type        = string
+}
+
 variable "validate_iam_access_analyzer" {
   description = "Flag to enable or disable IAM Access Analyzer validation"
   type        = bool
