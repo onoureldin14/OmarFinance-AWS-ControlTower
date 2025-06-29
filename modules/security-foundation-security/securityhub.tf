@@ -81,3 +81,9 @@ resource "aws_securityhub_automation_rule" "elevate_security_and_management_find
 
   }
 }
+
+resource "aws_cloudformation_stack" "ecr_continious_compliance" {
+  name          = "aws-ecr-continuouscompliance"
+  template_body = file("${path.module}/cf-templates/aws-ecr-continuouscompliance-v1.yaml")
+  capabilities  = ["CAPABILITY_NAMED_IAM"]
+}
