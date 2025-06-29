@@ -65,6 +65,8 @@ module "security_foundation_security" {
   validate_iam_access_analyzer             = false
   security_hub_member_invite               = local.security_hub_member_invite
   securityhub_aggregator_specified_regions = var.securityhub_aggregator_specified_regions
+  aws_management_account_id                = data.aws_caller_identity.current.account_id
+  aws_production_account_id                = var.production_account_id
   depends_on                               = [module.control_tower_landing_zone, module.organization, module.security_foundation_management]
 }
 
