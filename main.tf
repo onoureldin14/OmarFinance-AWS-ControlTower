@@ -73,6 +73,19 @@ module "security_foundation_security" {
   depends_on                               = [module.control_tower_landing_zone, module.organization, module.security_foundation_management]
 }
 
+############################################################
+# PART 3 # Establishing a Baseline OU for Platform OU
+############################################################
+
+module "baseline_ou" {
+  source                 = "./modules/baseline-ou"
+  organizational_unit_id = module.organization.ou_ids["Platform"]
+  organization_id        = module.organization.organization_id
+  depends_on             = [module.organization]
+}
+
+
+
 #######################################################################################
 # OPTIONAL MODULE FOR SECURITY HUB INVITE ACCEPTOR
 # This module is used to accept Security Hub invitations from the Security Account
