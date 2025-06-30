@@ -67,6 +67,9 @@ module "security_foundation_security" {
   securityhub_aggregator_specified_regions = var.securityhub_aggregator_specified_regions
   aws_management_account_id                = data.aws_caller_identity.current.account_id
   aws_production_account_id                = var.production_account_id
+  enable_sechub_slack_integration          = true
+  slack_channel_id                         = var.slack_channel_id
+  slack_team_id                            = var.slack_team_id
   depends_on                               = [module.control_tower_landing_zone, module.organization, module.security_foundation_management]
 }
 
@@ -77,14 +80,14 @@ module "security_foundation_security" {
 
 # module "securityhub_invite_master_account" {
 #   count                             = var.enable_invite_acceptors ? 1 : 0
-#   source                            = "./modules/securityhub-invite"
+#   source                            = "./modules/sechub-invite"
 #   aws_securityhub_admin_account_id  = var.security_account_id
 #   depends_on                        = [module.security_foundation_security]
 # }
 
 # module "securityhub_invite_logging_account" {
 #   count                             = var.enable_invite_acceptors ? 1 : 0
-#   source                            = "./modules/securityhub-invite"
+#   source                            = "./modules/sechub-invite"
 #     providers = {
 #     aws = aws.logging
 #   }
@@ -94,7 +97,7 @@ module "security_foundation_security" {
 
 # module "securityhub_invite_product_account" {
 #   count                             = var.enable_invite_acceptors ? 1 : 0
-#   source                            = "./modules/securityhub-invite"
+#   source                            = "./modules/sechub-invite"
 #       providers = {
 #     aws = aws.production
 #   }

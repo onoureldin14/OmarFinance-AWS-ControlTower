@@ -36,6 +36,18 @@ variable "enable_invite_acceptors" {
   default     = false
 }
 
+variable "slack_channel_id" {
+  description = "Slack channel ID for the chatbot integration"
+  type        = string
+  default     = "" # replace with actual Slack channel ID
+}
+
+variable "slack_team_id" {
+  description = "Slack team ID for the chatbot integration"
+  type        = string
+  default     = "" # replace with actual Slack team ID
+}
+
 
 ##################################################
 # Security Account Variables
