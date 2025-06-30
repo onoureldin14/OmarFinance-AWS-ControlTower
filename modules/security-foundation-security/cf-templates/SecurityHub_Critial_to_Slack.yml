@@ -1,0 +1,43 @@
+Resources:
+
+  SlackNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: SNSTopicAWSChatBot  # Must match the one linked in AWS Chatbot config
+
+  SecurityHubFindingsToSlackRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: AllSecurityHubFindingsToSlack
+      Description: Forward critical/high/medium Security Hub findings to Slack via SNS
+      EventPattern:
+        source:
+          - aws.securityhub
+        detail-type:
+          - Security Hub Findings - Imported
+        detail:
+          findings:
+            Severity:
+              Label:
+                - HIGH
+                - CRITICAL
+                - MEDIUM
+      State: ENABLED
+      Targets:
+        - Arn: !Ref SlackNotificationTopic
+          Id: SendToSlack
+
+  AllowEventBridgeToPublishToSlackSNS:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref SlackNotificationTopic
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "AllowEventBridge"
+            Effect: "Allow"
+            Principal:
+              Service: "events.amazonaws.com"
+            Action: "sns:Publish"
+            Resource: "*"

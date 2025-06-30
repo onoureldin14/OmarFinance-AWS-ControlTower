@@ -44,3 +44,21 @@ variable "securityhub_aggregator_specified_regions" {
   type        = list(string)
   default     = []
 }
+
+variable "enable_sechub_slack_integration" {
+  description = "Flag to enable Security Hub Slack integration"
+  type        = bool
+  default     = false
+}
+
+variable "slack_channel_id" {
+  description = "Slack channel ID for the chatbot integration"
+  type        = string
+  default     = ""
+}
+
+variable "slack_team_id" {
+  description = "Slack team ID for the chatbot integration"
+  type        = string
+  default     = ""
+}

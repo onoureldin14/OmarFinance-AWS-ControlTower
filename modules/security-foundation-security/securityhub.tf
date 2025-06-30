@@ -87,3 +87,22 @@ resource "aws_cloudformation_stack" "ecr_continious_compliance" {
   template_body = file("${path.module}/cf-templates/aws-ecr-continuouscompliance-v1.yaml")
   capabilities  = ["CAPABILITY_NAMED_IAM"]
 }
+
+resource "aws_cloudformation_stack" "sechub_slack_integration" {
+  count         = var.enable_sechub_slack_integration ? 1 : 0
+  name          = "sechub-slack-integration"
+  template_body = file("${path.module}/cf-templates/SecurityHub_to_AWSChatBot.yml")
+  capabilities  = ["CAPABILITY_NAMED_IAM"]
+  parameters = {
+    SlackWorkSpaceID = var.slack_team_id
+    SlackChannelID   = var.slack_channel_id
+  }
+}
+
+resource "aws_cloudformation_stack" "sechub_findings_to_slack" {
+  count         = var.enable_sechub_slack_integration ? 1 : 0
+  name          = "sechub-findings-to-slack"
+  template_body = file("${path.module}/cf-templates/SecurityHub_Critial_to_Slack.yml")
+  capabilities  = ["CAPABILITY_NAMED_IAM"]
+  depends_on    = [aws_cloudformation_stack.sechub_slack_integration]
+}
