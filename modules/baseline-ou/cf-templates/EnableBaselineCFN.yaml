@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Register an OU with AWS Control Tower'
+
+Parameters:
+  CTBaselineId:
+    Type: String
+    Description: 'The full ARN of the AWSControlTowerBaseline baseline'
+
+  OUId:
+    Type: String
+    Description: 'The ID of the Organizational Unit to register'
+
+  OrganizationId:
+    Type: String
+    Description: 'The ID of your AWS Organization'
+
+  IdCBaselineId:
+    Type: String
+    Description: 'The full ARN of the enabled baseline for Identity Center (optional)'
+    Default: ''
+
+Conditions:
+  HasIdCBaselineId: !Not [!Equals [!Ref IdCBaselineId, '']]
+
+Resources:
+  RegisterOU:
+    Type: AWS::ControlTower::EnabledBaseline
+    Properties:
+      BaselineIdentifier: !Ref CTBaselineId
+      BaselineVersion: '4.0'
+      TargetIdentifier: !Sub 'arn:aws:organizations::${AWS::AccountId}:ou/${OrganizationId}/${OUId}'
+      Parameters: !If
+        - HasIdCBaselineId
+        - - Key: 'IdentityCenterEnabledBaselineArn'
+            Value: !Ref IdCBaselineId
+        - !Ref AWS::NoValue
+
+Outputs:
+  EnabledBaselineArn:
+    Description: 'The ARN of the enabled baseline'
+    Value: !Ref RegisterOU

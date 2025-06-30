@@ -109,6 +109,12 @@ variable "product_ou_name" {
   default     = "Product"
 }
 
+variable "platform_ou_name" {
+  description = "Name of the platform organizational unit"
+  type        = string
+  default     = "Platform"
+}
+
 variable "production_account_id" {
   description = "AWS Account ID for the production account"
   type        = string

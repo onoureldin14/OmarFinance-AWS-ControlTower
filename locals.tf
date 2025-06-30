@@ -3,6 +3,10 @@ locals {
     "Product" = {
       name = var.product_ou_name
     }
+    "Platform" = {
+      name = var.platform_ou_name
+    }
+
   }
   organization_accounts = {
     security = {

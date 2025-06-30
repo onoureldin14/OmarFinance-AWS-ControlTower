@@ -1,5 +1,11 @@
 output "organization_id" {
   description = "The ID of the AWS Organization"
+  value       = aws_organizations_organization.org.id
+}
+
+
+output "root_organization_id" {
+  description = "The ID of the Root OU of AWS Organization"
   value       = aws_organizations_organization.org.roots[0].id
 }
 
