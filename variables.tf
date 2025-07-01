@@ -1,3 +1,26 @@
+variable "aws_region" {
+  description = "AWS region to deploy resources"
+  type        = string
+  default     = "eu-west-1"
+}
+
+variable "aws_secondary_region" {
+  description = "Secondary AWS region for cross-region replication"
+  type        = string
+  default     = "eu-west-2"
+}
+
+variable "github_organization" {
+  description = "GitHub organization name for the repository"
+  type        = string
+}
+
+variable "company_name" {
+  description = "Name of the company for branding purposes"
+  type        = string
+  default     = "OmarFinance"
+}
+
 variable "management_account_email" {
   description = "Email address for the management account"
   type        = string
