@@ -99,7 +99,7 @@ variable "logging_account_id" {
 }
 
 ##################################################
-# Production Account Variables
+# Product OU and Production Account Variables
 ##################################################
 
 
@@ -107,12 +107,6 @@ variable "product_ou_name" {
   description = "Name of the product organizational unit"
   type        = string
   default     = "Product"
-}
-
-variable "platform_ou_name" {
-  description = "Name of the platform organizational unit"
-  type        = string
-  default     = "Platform"
 }
 
 variable "production_account_id" {
@@ -130,5 +124,31 @@ variable "production_account_name" {
 
 variable "production_account_email" {
   description = "Email address for the Production account"
+  type        = string
+}
+
+##################################################
+# Platform OU and AFT  Account Variables
+##################################################
+
+variable "platform_ou_name" {
+  description = "Name of the platform organizational unit"
+  type        = string
+  default     = "Platform"
+}
+
+variable "aft_account_name" {
+  description = "Name of the AFT account"
+  type        = string
+  default     = "AFT Account"
+}
+
+variable "aft_account_email" {
+  description = "Email address for the AFT account"
+  type        = string
+}
+
+variable "aft_account_id" {
+  description = "AWS Account ID for the AFT account"
   type        = string
 }

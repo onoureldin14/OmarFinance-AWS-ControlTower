@@ -23,6 +23,12 @@ locals {
       email = var.production_account_email
       ou    = local.organizational_units.Product.name
     }
+    aft = {
+      name  = var.aft_account_name
+      email = var.aft_account_email
+      ou    = local.organizational_units.Platform.name
+    }
+
   }
 
   controls = {
@@ -58,6 +64,11 @@ locals {
       account_id = var.production_account_id
       email      = var.production_account_email
     }
+    aft = {
+      account_id = var.aft_account_id
+      email      = var.aft_account_email
+    }
+
   }
 
 }

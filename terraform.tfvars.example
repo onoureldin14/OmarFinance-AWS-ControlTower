@@ -9,5 +9,8 @@ logging_account_id       = "123456789"
 production_account_email = "user+production@email.me"
 production_account_id    = "123456789"
 
+aft_account_email = "user+aft@email.me"
+aft_account_id    = "123456789012
+
 slack_channel_id         = "C07EZ1ABC23"
 slack_team_id            = "T07EA123LEP"
