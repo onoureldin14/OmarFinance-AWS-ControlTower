@@ -6,6 +6,9 @@ locals {
     "Platform" = {
       name = var.platform_ou_name
     }
+    "Ops" = {
+      name = var.ops_ou_name
+    }
 
   }
   organization_accounts = {

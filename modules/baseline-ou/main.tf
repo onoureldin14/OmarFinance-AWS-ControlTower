@@ -1,5 +1,10 @@
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
+
 resource "aws_cloudformation_stack" "enable_baseline" {
-  name          = "RegisterOU"
+  name          = "RegisterOU-${random_id.suffix.id}"
   template_body = file("${path.module}/cf-templates/EnableBaselineCFN.yaml")
 
   parameters = {
@@ -10,4 +15,7 @@ resource "aws_cloudformation_stack" "enable_baseline" {
   }
 
   capabilities = ["CAPABILITY_NAMED_IAM"]
+  lifecycle {
+    ignore_changes = [name]
+  }
 }
