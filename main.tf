@@ -122,7 +122,10 @@ module "aft_pipeline" {
   log_archive_bucket_object_expiration_days = 1
 }
 
-
+module "aft_deploy_prerequisite" {
+  source     = "./modules/aft-deploy-prerequisite"
+  depends_on = [module.aft_pipeline]
+}
 
 module "baseline_ou_ops" {
   source                 = "./modules/baseline-ou"
