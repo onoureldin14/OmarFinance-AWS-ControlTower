@@ -175,3 +175,15 @@ variable "aft_account_id" {
   description = "AWS Account ID for the AFT account"
   type        = string
 }
+
+
+##################################################
+# Ops OU and Ops  Account Variables
+##################################################
+
+variable "ops_ou_name" {
+  description = "Name of the Ops organizational unit"
+  type        = string
+  default     = "Ops"
+
+}

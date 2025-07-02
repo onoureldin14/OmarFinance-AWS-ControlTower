@@ -86,7 +86,7 @@ module "baseline_ou" {
 
 
 ############################################################
-# PART 4 # Account Factory Pipeline
+# PART 4 # Account Factory Pipeline & Ops OU
 ############################################################
 
 
@@ -120,6 +120,15 @@ module "aft_pipeline" {
   aft_enable_vpc                            = false
   backup_recovery_point_retention           = 1
   log_archive_bucket_object_expiration_days = 1
+}
+
+
+
+module "baseline_ou_ops" {
+  source                 = "./modules/baseline-ou"
+  organizational_unit_id = module.organization.ou_ids["Ops"]
+  organization_id        = module.organization.organization_id
+  depends_on             = [module.organization]
 }
 
 
