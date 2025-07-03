@@ -23,3 +23,22 @@ resource "aws_organizations_delegated_administrator" "delegated_admins" {
 
   depends_on = [null_resource.enable_service_access]
 }
+
+
+resource "null_resource" "enable_aft_service_access" {
+  for_each = toset(var.aft_services)
+  provisioner "local-exec" {
+    command = "aws organizations enable-aws-service-access --service-principal ${each.key}"
+  }
+}
+
+
+resource "aws_organizations_delegated_administrator" "aft_delegated_admin" {
+  for_each = var.enable_aft_delegated_admin ? {
+    for idx, svc in var.aft_services : idx => svc
+  } : {}
+  account_id        = var.aws_aft_account_id
+  service_principal = each.value
+
+  depends_on = [null_resource.enable_aft_service_access]
+}

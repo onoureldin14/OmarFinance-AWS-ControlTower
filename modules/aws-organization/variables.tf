@@ -49,3 +49,21 @@ variable "aws_security_account_id" {
   type        = string
   default     = "" # replace with actual security account ID
 }
+
+variable "aws_aft_account_id" {
+  description = "Account ID for AFT delegated admin"
+  type        = string
+  default     = ""
+}
+
+variable "aft_services" {
+  description = "Values for AFT service principals"
+  type        = list(string)
+  default     = ["account.amazonaws.com"]
+}
+
+variable "enable_aft_delegated_admin" {
+  description = "Flag to enable AFT delegated administrator setup"
+  type        = bool
+  default     = false
+}
