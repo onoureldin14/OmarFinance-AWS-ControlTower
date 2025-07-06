@@ -185,5 +185,10 @@ variable "ops_ou_name" {
   description = "Name of the Ops organizational unit"
   type        = string
   default     = "Ops"
+}
+
+variable "ops_account_id" {
+  description = "AWS Account ID for the OPS account"
+  type        = string
 
 }

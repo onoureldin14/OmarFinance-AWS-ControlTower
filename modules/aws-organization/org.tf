@@ -8,8 +8,11 @@ resource "aws_organizations_organization" "org" {
       "controltower.amazonaws.com",
       "member.org.stacksets.cloudformation.amazonaws.com",
       "sso.amazonaws.com",
+      "iam.amazonaws.com"
     ],
-    var.delegated_security_services
+    var.delegated_security_services,
+    var.aft_services,
+    var.ops_services
   )
 
   feature_set = "ALL"

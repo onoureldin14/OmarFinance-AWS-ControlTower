@@ -4,9 +4,10 @@ module "organization" {
   organizational_units                    = local.organizational_units
   enable_security_account_delegated_admin = true
   enable_aft_delegated_admin              = true
+  enable_ops_delegated_admin              = true
   aws_security_account_id                 = var.security_account_id
   aws_aft_account_id                      = var.aft_account_id
-
+  aws_ops_account_id                      = var.ops_account_id
 }
 
 
