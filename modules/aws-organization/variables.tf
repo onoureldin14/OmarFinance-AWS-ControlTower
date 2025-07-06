@@ -30,7 +30,6 @@ variable "delegated_security_services" {
   type        = list(string)
   default = [
     "access-analyzer.amazonaws.com",
-    "iam.amazonaws.com",
     "securityhub.amazonaws.com",
     "guardduty.amazonaws.com",
     "malware-protection.guardduty.amazonaws.com",
@@ -66,4 +65,22 @@ variable "enable_aft_delegated_admin" {
   description = "Flag to enable AFT delegated administrator setup"
   type        = bool
   default     = false
+}
+
+variable "ops_services" {
+  description = "Values for AFT service principals"
+  type        = list(string)
+  default     = ["health.amazonaws.com"]
+}
+
+variable "enable_ops_delegated_admin" {
+  description = "Flag to enable AFT delegated administrator setup"
+  type        = bool
+  default     = false
+}
+
+variable "aws_ops_account_id" {
+  description = "Account ID for AFT delegated admin"
+  type        = string
+  default     = ""
 }
