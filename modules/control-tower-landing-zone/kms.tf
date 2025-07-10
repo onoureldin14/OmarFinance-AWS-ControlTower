@@ -5,6 +5,12 @@ resource "aws_kms_key" "control_tower_kms_key" {
   deletion_window_in_days = 20
 }
 
+resource "aws_kms_alias" "control_tower_kms_key_alias" {
+  count         = var.backup_enabled ? 2 : 1
+  name          = var.backup_enabled ? "alias/control-tower-kms-key-${count.index}" : "alias/control-tower-kms-key"
+  target_key_id = aws_kms_key.control_tower_kms_key[count.index].key_id
+}
+
 resource "aws_kms_key_policy" "control_tower_kms_key_policy" {
   count  = length(aws_kms_key.control_tower_kms_key)
   key_id = aws_kms_key.control_tower_kms_key[count.index].id
