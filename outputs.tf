@@ -18,3 +18,8 @@ output "account_factory_portfolio_id" {
   description = "AWS Control Tower Account Factory Portfolio"
   value       = module.aft_deploy_prerequisite.portfolio_id
 }
+
+
+# output "datadog_forwarder_arn" {
+#   value =  module.datadog_logging.datadog_forwarder_arn
+# }

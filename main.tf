@@ -137,7 +137,24 @@ module "baseline_ou_ops" {
   depends_on             = [module.organization]
 }
 
+############################################################
+# PART 4 # Datadog Logging Module
+############################################################
 
+module "datadog_logging" {
+  source = "./modules/datadog-logging"
+  providers = {
+    aws = aws.logging
+  }
+  datadog_api_key = var.datadog_api_key
+  datadog_app_key = var.datadog_app_key
+  organization_id = module.organization.organization_id
+}
+
+module "datadog_kms" {
+  source                     = "./modules/datadog-kms"
+  datadog_forwarder_role_arn = module.datadog_logging.datadog_forwarder_role_arn
+}
 
 #######################################################################################
 # OPTIONAL MODULE FOR SECURITY HUB INVITE ACCEPTOR

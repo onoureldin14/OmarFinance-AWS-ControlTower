@@ -17,3 +17,6 @@ github_organization     = "MY_GITHUB_ORG_NAME"
 
 slack_channel_id         = "C07EZ1ABC23"
 slack_team_id            = "T07EA123LEP"
+
+datadog_api_key = XXXXXXXXXXXXXXXXXXX
+datadog_app_key = XXXXXXXXXXXXXXXXXXXXXX
