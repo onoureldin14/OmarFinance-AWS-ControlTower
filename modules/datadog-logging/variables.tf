@@ -4,10 +4,29 @@ variable "datadog_api_key" {
   sensitive   = true
 }
 
-variable "datadog_site" {
+variable "datadog_app_key" {
+  description = "Datadog APP key for the forwarder Lambda. Get this from your Datadog account."
+  type        = string
+  sensitive   = true
+}
+
+
+variable "datadog_api" {
   description = "Datadog site (e.g., datadoghq.com, datadoghq.eu)"
   type        = string
+  default     = "https://api.datadoghq.eu/"
+}
+
+variable "datadog_site" {
+  description = "Datadog site for the forwarder (e.g., datadoghq.com, datadoghq.eu)"
+  type        = string
   default     = "datadoghq.eu"
+}
+
+variable "organization_id" {
+  description = "Organization ID for the Datadog Forwarder."
+  type        = string
+
 }
 
 variable "forwarder_stack_name" {
@@ -29,12 +48,9 @@ variable "cloudwatch_log_group_name" {
 }
 
 
-variable "mgt_account_cloudtrail_bucket_name" {
+variable "cloudtrail_bucket_name" {
   description = "Name of the S3 bucket containing CloudTrail logs to be forwarded."
   type        = string
-}
+  default     = "aws-controltower-logs"
 
-variable "mgt_account_cloudtrail_kms_key_arn" {
-  description = "ARN of the KMS key used to encrypt CloudTrail logs. Pass the output from the logging module."
-  type        = string
 }
