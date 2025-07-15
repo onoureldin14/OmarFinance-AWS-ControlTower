@@ -41,12 +41,6 @@ variable "forwarder_function_name" {
   default     = "datadog-forwarder"
 }
 
-variable "cloudwatch_log_group_name" {
-  description = "Name of the CloudWatch log group to forward to Datadog."
-  type        = string
-  default     = "datadog-forwarder-log-group"
-}
-
 
 variable "cloudtrail_bucket_name" {
   description = "Name of the S3 bucket containing CloudTrail logs to be forwarded."

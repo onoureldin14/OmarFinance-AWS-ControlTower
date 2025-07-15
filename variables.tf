@@ -151,13 +151,6 @@ variable "production_account_email" {
 }
 
 
-
-variable "cloudtrail_bucket_name" {
-  description = "Name of the S3 bucket containing CloudTrail logs to be forwarded."
-  type        = string
-  default     = "aws-controltower-logs"
-}
-
 variable "datadog_api_key" {
   description = "Datadog API key for the forwarder Lambda. Get this from your Datadog account."
   type        = string
@@ -169,7 +162,7 @@ variable "datadog_app_key" {
   description = "Datadog APP key for the forwarder Lambda. Get this from your Datadog account."
   type        = string
   sensitive   = true
-    default     = "" # replace with actual Datadog API key
+  default     = "" # replace with actual Datadog API key
 
 }
 

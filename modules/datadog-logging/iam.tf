@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "datadog_aws_integration_assume_role" {
       test     = "StringEquals"
       variable = "sts:ExternalId"
       values = [
-        "${datadog_integration_aws_account.datadog_integration.auth_config.aws_auth_config_role.external_id}"
+        datadog_integration_aws_account.datadog_integration.auth_config.aws_auth_config_role.external_id
       ]
     }
   }
