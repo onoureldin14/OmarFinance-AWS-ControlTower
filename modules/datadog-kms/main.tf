@@ -78,7 +78,7 @@ data "aws_iam_policy_document" "cloudtrail_kms" {
 
     principals {
       type        = "AWS"
-      identifiers = [var.datadog_forwarder_role_arn] # This should be the ARN of the Datadog forwarder Lambda
+      identifiers = [tolist(var.datadog_forwarder_role_arn)[0]] # This should be the ARN of the Datadog forwarder Lambda
     }
 
     resources = ["*"]
