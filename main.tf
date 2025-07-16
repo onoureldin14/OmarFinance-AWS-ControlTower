@@ -149,13 +149,12 @@ module "datadog_logging" {
   datadog_api_key = var.datadog_api_key
   datadog_app_key = var.datadog_app_key
   organization_id = module.organization.organization_id
-  depends_on = [ module.organization, module.control_tower_landing_zone ]
 }
 
 module "datadog_kms" {
   source                     = "./modules/datadog-kms"
   datadog_forwarder_role_arn = module.datadog_logging.datadog_forwarder_role_arn
-  depends_on = [ module.datadog_logging ]
+  depends_on                 = [module.datadog_logging]
 }
 
 #######################################################################################
